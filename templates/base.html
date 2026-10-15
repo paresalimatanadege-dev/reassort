@@ -1,22 +1,28 @@
 <!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Réassort{% endblock %}</title>
+</head>
 
-<html>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <span>Connecté : {{ user.username }}</span>
+            <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit">Se déconnecter</button>
+            </form>
+        {% else %}
+            <a href="{% url 'accounts:login' %}">Se connecter</a>
+        {% endif %}
+    </nav>
 
-     {% load static %}
-    <head>
-        <title>Reassort</title>
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    </head>
-    <body>
-
-        <nav>
-            
-        </nav>
-
-
+    <main>
         {% block content %}{% endblock %}
-
-    </body>
+    </main>
+</body>
 
 </html>

@@ -13,7 +13,7 @@ class Profile(models.Model):
     role=models.CharField(max_length=20, choices=ROLE_CHOICES, default=ROLE_DETAILLANT)
     nom_commercial=models.CharField(max_length=100, blank=True)
     telephone=models.CharField(max_length=20, blank=True)
-    adresse=models.EmailField(max_length=200, blank=True)
+    adresse=models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.get_role_display()}"
