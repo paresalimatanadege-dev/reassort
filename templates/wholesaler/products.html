@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Mes produits - Réassort{% endblock %}
+
+{% block content %}
+    <h1>Mes produits</h1>
+
+    {% if products %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Unité</th>
+                <th>Disponibilité</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in products %}
+            <tr>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.prix }} FCFA</td>
+                <td>{{ p.unite }}</td>
+                <td>{% if p.disponible %}Disponible{% else %}Indisponible{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Vous n'avez pas encore de produit.</p>
+    {% endif %}
+{% endblock %}
