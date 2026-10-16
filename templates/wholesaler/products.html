@@ -15,6 +15,7 @@
                 <th>Prix</th>
                 <th>Unité</th>
                 <th>Disponibilité</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{ p.prix }} FCFA</td>
                 <td>{{ p.unite }}</td>
                 <td>{% if p.disponible %}Disponible{% else %}Indisponible{% endif %}</td>
+                <td><a href="{% url 'catalog:product_update' p.pk %}">Modifier</a></td>
             </tr>
         {% endfor %}
         </tbody>
