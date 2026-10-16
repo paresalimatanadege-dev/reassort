@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer un produit - Réassort{% endblock %}
+
+{% block content %}
+    <h1>Supprimer le produit</h1>
+    <p>Voulez-vous vraiment supprimer « {{ product.nom }} » ? Cette action est définitive.</p>
+    <p>Pour seulement le retirer de la vente, rendez-le plutôt indisponible.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Oui, supprimer</button>
+        <a href="{% url 'catalog:product_list' %}">Annuler</a>
+    </form>
+{% endblock %}

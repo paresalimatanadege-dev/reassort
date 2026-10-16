@@ -76,6 +76,31 @@ button {
     margin-bottom: 4px;
 }
 
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 1.2;
+    color: #1f3a5f;
+    background: #fff;
+    border: 1px solid #1f3a5f;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     nav {
         flex-direction: column;

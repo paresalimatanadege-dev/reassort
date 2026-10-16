@@ -5,6 +5,7 @@ from django.views.decorators.http import require_POST
 from accounts.decorators import role_required
 from .forms import ProductForm
 from .models import Product
+from django.db.models import ProtectedError
 
 @login_required
 @role_required('GROSSISTE')
@@ -53,3 +54,17 @@ def product_toggle(request, pk):
     product.disponible = not product.disponible
     product.save()
     return redirect('catalog:product_list')
+
+@login_required
+@role_required('GROSSISTE')
+def product_delete(request, pk):
+    product = get_object_or_404(Product, pk=pk, wholesaler=request.user)
+    if request.method == 'POST':
+        try:
+            product.delete()
+        except ProtectedError:
+            messages.error(request, "Ce produit figure dans des commandes : il ne peut pas être supprimé. Rendez-le indisponible à la place.")
+        else:
+            messages.success(request, "Produit supprimé.")
+        return redirect('catalog:product_list')
+    return render(request, 'wholesaler/product_confirm_delete.html', {'product': product})

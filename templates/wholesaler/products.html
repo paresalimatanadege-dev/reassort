@@ -26,17 +26,21 @@
                 <td>{{ p.unite }}</td>
                 <td>{% if p.disponible %}Disponible{% else %}Indisponible{% endif %}</td>
                 <td>
-                    <a href="{% url 'catalog:product_update' p.pk %}">Modifier</a>
-                    <form method="post" action="{% url 'catalog:product_toggle' p.pk %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">
-                            {% if p.disponible %}Rendre indisponible{% else %}Rendre disponible{% endif %}
-                        </button>
-                    </form>
+                    <div class="actions">
+                        <a class="btn" href="{% url 'catalog:product_update' p.pk %}">Modifier</a>
+
+                        <form method="post" action="{% url 'catalog:product_toggle' p.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">
+                                {% if p.disponible %}Rendre indisponible{% else %}Rendre disponible{% endif %}
+                            </button>
+                        </form>
+                        <a class="btn btn-danger" href="{% url 'catalog:product_delete' p.pk %}">Supprimer</a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
+    </tbody>
     </table>
     {% else %}
         <p>Vous n'avez pas encore de produit.</p>
