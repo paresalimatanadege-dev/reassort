@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from accounts.decorators import role_required
 from .forms import ProductForm
 from .models import Product
@@ -43,3 +44,12 @@ def product_update(request, pk):
         form = ProductForm(instance=product)
     return render(request, 'wholesaler/product_form.html',
                   {'form': form, 'titre': 'Modifier le produit'})
+
+@login_required
+@role_required('GROSSISTE')
+@require_POST
+def product_toggle(request, pk):
+    product = get_object_or_404(Product, pk=pk, wholesaler=request.user)
+    product.disponible = not product.disponible
+    product.save()
+    return redirect('catalog:product_list')

@@ -17,13 +17,16 @@
                 {% csrf_token %}
                 <button type="submit">Se déconnecter</button>
             </form>
+            {% if user.profile.role == 'GROSSISTE' %}
+            <a href="{% url 'accounts:wholesaler_dashboard' %}">Tableau de bord</a>
+            <a href="{% url 'catalog:product_list' %}">Mes produits</a>
+            {% elif user.profile.role == 'DETAILLANT' %}
+                <a href="{% url 'accounts:retailer_dashboard' %}">Tableau de bord</a>
+            {% endif %}
         {% else %}
             <a href="{% url 'accounts:login' %}">Se connecter</a>
         {% endif %}
-        {% if user.profile.role == 'GROSSISTE' %}
-            <a href="{% url 'accounts:wholesaler_dashboard' %}">Tableau de bord</a>
-            <a href="{% url 'catalog:product_list' %}">Mes produits</a>
-        {% endif %}
+        
     </nav>
 
     {% if messages %}

@@ -25,7 +25,15 @@
                 <td>{{ p.prix }} FCFA</td>
                 <td>{{ p.unite }}</td>
                 <td>{% if p.disponible %}Disponible{% else %}Indisponible{% endif %}</td>
-                <td><a href="{% url 'catalog:product_update' p.pk %}">Modifier</a></td>
+                <td>
+                    <a href="{% url 'catalog:product_update' p.pk %}">Modifier</a>
+                    <form method="post" action="{% url 'catalog:product_toggle' p.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">
+                            {% if p.disponible %}Rendre indisponible{% else %}Rendre disponible{% endif %}
+                        </button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
