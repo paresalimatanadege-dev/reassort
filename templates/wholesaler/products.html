@@ -5,6 +5,8 @@
 {% block content %}
     <h1>Mes produits</h1>
 
+    <p><a href="{% url 'catalog:product_create' %}">Ajouter un produit</a></p>
+
     {% if products %}
     <table>
         <thead>
